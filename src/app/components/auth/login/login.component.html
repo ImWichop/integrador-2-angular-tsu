@@ -1,0 +1,34 @@
+<div class="background text-center">
+  <form
+    class="form-signin"
+    autocomplete="off"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+  >
+    <img class="mb-4 img" src="assets/logoOfficial.svg" alt="logo" />
+    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+    <label class="sr-only" for="inputEmail">Email Address</label>
+    <input
+      type="email"
+      class="form-control mb-2"
+      id="inputEmail"
+      placeholder="Email Address"
+      formControlName="email"
+      [class.is-invalid]="emailValidate"
+    />
+    <label class="sr-only" for="inputPassword">Password</label>
+    <input
+      type="password"
+      class="form-control mb-3"
+      id="inputPassword"
+      placeholder="Password"
+      formControlName="password"
+      [class.is-invalid]="passwordValidate"
+    />
+    <button type="submit" class="btn btn-lg btn-primary btn-block mb-2">
+      Sign in
+    </button>
+    <a [routerLink]="['/register']">Don't you have an account?</a>
+    <p class="mt-4 mb-3 text-muted">© Nameless Group - 2020</p>
+  </form>
+</div>
