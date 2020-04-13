@@ -1,0 +1,22 @@
+<div class="d-flex flex-column justify-content-center align-items-center mt-3 animated fadeIn">
+  <h1>Lights</h1>
+
+  <div class="row p-3 m-3 item" *ngFor="let room of rooms">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div
+        class="d-flex align-items-center justify-content-between"
+        style="min-width: 500px;"
+      >
+        <h4>{{ room.name }}</h4>
+
+        <input
+          type="button"
+          [value]="room.text"
+          class="btn btn-primary px-5"
+          (click)="onSwitchLed(room)"
+          [class.btn-danger]="room.text == 'OFF'"
+        />
+      </div>
+    </div>
+  </div>
+</div>

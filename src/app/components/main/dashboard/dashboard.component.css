@@ -1,0 +1,40 @@
+.grid {
+  height: calc(100vh - 56px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  margin: 20px;
+  background-color: #343a40;
+  border-radius: 1em;
+  color: #FFF;
+  cursor: pointer;
+  transition: ease .3s all;
+}
+
+.item:hover{
+  background-color: #4b5258;
+}
+
+.img-100{
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 600px){
+  .grid{
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4,300px);
+  }
+
+  .img-100{
+    width: 50px;
+  }
+}

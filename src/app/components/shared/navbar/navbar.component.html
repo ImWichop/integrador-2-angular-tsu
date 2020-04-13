@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" [routerLink]="['dashboard']">
     <img
       src="assets/logoOfficial.svg"
       width="30"
@@ -23,17 +23,17 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Home</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['dashboard']">Dashboard</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Lights</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['lights']">Lights</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Doors</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['doors']">Doors</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Others</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['others']">Others</a>
       </li>
     </ul>
     <div class="d-flex align-items-center">

@@ -1,0 +1,10 @@
+<div class="grid animated fadeIn">
+  <div
+    class="item"
+    *ngFor="let item of items"
+    (click)="goToComponent(item.path)"
+  >
+    <img [src]="item.img" alt="" class="img-100" />
+    <h3>{{ item.title }}</h3>
+  </div>
+</div>
