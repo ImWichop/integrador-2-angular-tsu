@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LightService } from 'src/app/services/light.service';
 import { Item } from 'src/app/models/item';
+import { successDialog } from 'src/app/functions/alerts';
 
 @Component({
   selector: 'app-light',
@@ -8,25 +9,32 @@ import { Item } from 'src/app/models/item';
   styleUrls: ['./light.component.css']
 })
 export class LightComponent implements OnInit {
-  rooms: Item[] = [
-    {name: 'Room 1', feed: 'cuarto1', value: '' , text: ''},
-    {name: 'Room 2', feed: 'cuarto2', value: '' , text: ''},
-    {name: 'Room 3', feed: 'cuarto3', value: '' , text: ''},
-    {name: 'Room 4', feed: 'cuarto4', value: '' , text: ''},
-    {name: 'Room 5', feed: 'cuarto5', value: '' , text: ''},
-  ];
+  rooms: Item[] = [];
   value: string;
   constructor(private lightService: LightService) {
-    this.getStatus();
+    this.getLeds();
    }
 
   ngOnInit(): void {
   }
 
   onSwitchLed(room: Item): void {
+    if (room.value === 'ON') {
+      room.value = 'OFF';
+    } else {
+      room.value = 'ON';
+    }
+    this.lightService.onSwitchLed(room).subscribe((data: any) => {
+      successDialog('Good').then(() => {
+        this.getLeds();
+      });
+    });
   }
 
-  getStatus(): void {
+  getLeds(): void {
+    this.lightService.getLeds().subscribe((data: any) => {
+      this.rooms = data;
+    });
   }
 
 }

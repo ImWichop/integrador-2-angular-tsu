@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/item';
 import { DoorService } from 'src/app/services/door.service';
+import { successDialog } from 'src/app/functions/alerts';
 
 @Component({
   selector: 'app-door',
@@ -8,21 +9,30 @@ import { DoorService } from 'src/app/services/door.service';
   styleUrls: ['./door.component.css'],
 })
 export class DoorComponent implements OnInit {
-  doors: Item[] = [
-    {name: 'Door 1', feed: 'puerta1', value: '', text: ''},
-    {name: 'Door 2', feed: 'puerta2', value: '', text: ''},
-    {name: 'Door 3', feed: 'puerta3', value: '', text: ''}
-  ];
+  doors: Item[] = [];
   constructor(private doorService: DoorService) {
-    this.getStatus();
+    this.getDoors();
   }
 
   ngOnInit(): void {
   }
 
   onSwitchDoor(door: Item): void {
+    if (door.value === 'ON') {
+      door.value = 'OFF';
+    } else {
+      door.value = 'ON';
+    }
+    this.doorService.onSwitchDoor(door).subscribe((data: any) => {
+      successDialog('Good').then(() => {
+        this.getDoors();
+      });
+    });
   }
 
-  getStatus(): void {
+  getDoors(): void {
+    this.doorService.getDoors().subscribe((data: any) => {
+      this.doors = data;
+    });
   }
 }

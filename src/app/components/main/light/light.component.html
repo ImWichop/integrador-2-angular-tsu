@@ -11,10 +11,10 @@
 
         <input
           type="button"
-          [value]="room.text"
+          [value]="room.value"
           class="btn btn-primary px-5"
           (click)="onSwitchLed(room)"
-          [class.btn-danger]="room.text == 'OFF'"
+          [class.btn-danger]="room.value == 'OFF'"
         />
       </div>
     </div>

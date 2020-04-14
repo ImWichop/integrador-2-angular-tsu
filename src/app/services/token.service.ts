@@ -17,7 +17,11 @@ export class TokenService implements HttpInterceptor {
     }
 
     return next.handle(req).pipe(
-      catchError(this.TakeError)
+      catchError(error => {
+        if (error.url.includes('/login')) {
+          return throwError(error);
+        }
+      })
     );
   }
 
