@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
     {img: 'assets/light.svg', title: 'Lights', path: 'lights'},
     {img: 'assets/key.svg', title: 'Doors', path: 'doors'},
     {img: 'assets/weather.svg', title: 'Weather', path: 'others'},
-    {img: 'assets/air.svg', title: 'Air', path: 'others'},
+    {img: 'assets/alarm.svg', title: 'Alarm', path: 'others'},
   ];
 
   constructor(private router: Router) {}

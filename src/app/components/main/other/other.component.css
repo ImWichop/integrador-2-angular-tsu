@@ -1,0 +1,10 @@
+.item {
+  background: #343a40;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.img-100{
+  width: 150px;
+  margin-bottom: 10px;
+}
