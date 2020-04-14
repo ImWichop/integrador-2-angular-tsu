@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/item';
 import { DoorService } from 'src/app/services/door.service';
 import { successDialog } from 'src/app/functions/alerts';
+import Ws from '@adonisjs/websocket-client';
 
 @Component({
   selector: 'app-door',
@@ -10,11 +11,23 @@ import { successDialog } from 'src/app/functions/alerts';
 })
 export class DoorComponent implements OnInit {
   doors: Item[] = [];
+  ws: any;
+  channel: any;
   constructor(private doorService: DoorService) {
     this.getDoors();
   }
 
   ngOnInit(): void {
+    this.ws = Ws('ws://localhost:3333', {
+      path: 'ws'
+    });
+
+    this.ws.connect();
+    this.channel = this.ws.subscribe('home');
+
+    this.channel.on('door', (data: any) => {
+      console.log('ON');
+    });
   }
 
   onSwitchDoor(door: Item): void {
@@ -26,6 +39,7 @@ export class DoorComponent implements OnInit {
     this.doorService.onSwitchDoor(door).subscribe((data: any) => {
       successDialog('Good').then(() => {
         this.getDoors();
+        this.channel.emit('door', door.feed + ' ' +  door.value);
       });
     });
   }

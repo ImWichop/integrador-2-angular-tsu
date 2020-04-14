@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/item';
 import { OtherService } from 'src/app/services/other.service';
 import { successDialog } from 'src/app/functions/alerts';
+import Ws from '@adonisjs/websocket-client';
 
 @Component({
   selector: 'app-other',
@@ -11,11 +12,27 @@ import { successDialog } from 'src/app/functions/alerts';
 export class OtherComponent implements OnInit {
   alarms: Item[] = [];
   temp = 30;
+  ws: any;
+  channel: any;
   constructor(private otherService: OtherService) {
     this.getAlarms();
    }
 
   ngOnInit(): void {
+    this.ws = Ws('ws://localhost:3333', {
+      path: 'ws'
+    });
+
+    this.ws.connect();
+    this.channel = this.ws.subscribe('home');
+
+    this.channel.on('alarms', (data: any) => {
+      console.log('ON');
+    });
+
+    this.channel.on('weathers', (data: any) => {
+      this.temp = data;
+    });
   }
 
   onSwitchAlarm(alarm: Item): void {
@@ -27,6 +44,7 @@ export class OtherComponent implements OnInit {
     this.otherService.onSwitchAlarm(alarm).subscribe((data: any) => {
       successDialog('Good').then(() => {
         this.getAlarms();
+        this.channel.emit('alarm', alarm.value);
       });
     });
   }
