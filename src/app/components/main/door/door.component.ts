@@ -26,7 +26,7 @@ export class DoorComponent implements OnInit {
     this.channel = this.ws.subscribe('home');
 
     this.channel.on('door', (data: any) => {
-      console.log('ON');
+      this.getDoors();
     });
   }
 

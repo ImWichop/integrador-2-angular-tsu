@@ -25,7 +25,7 @@ export class LightComponent implements OnInit {
     this.channel = this.ws.subscribe('home');
 
     this.channel.on('leds', (data: any) => {
-      console.log('ON');
+      this.getLeds();
     });
   }
 

@@ -16,7 +16,14 @@ export class OtherService {
   }
 
   getWeathers(): Observable<any> {
-    return this.http.get(`${this.apiURL}/weathers`);
+    return this.http.get(`${this.apiURL}/weathersLast`);
+  }
+
+  onStoreWeather(weather): Observable<any> {
+    const temp = {
+      degrees: weather
+    };
+    return this.http.post(`${this.apiURL}/weathers`, temp);
   }
 
   onSwitchAlarm(item: Item): Observable<any> {

@@ -11,11 +11,12 @@ import Ws from '@adonisjs/websocket-client';
 })
 export class OtherComponent implements OnInit {
   alarms: Item[] = [];
-  temp = 30;
+  temp;
   ws: any;
   channel: any;
   constructor(private otherService: OtherService) {
     this.getAlarms();
+    this.getWeather();
    }
 
   ngOnInit(): void {
@@ -27,11 +28,14 @@ export class OtherComponent implements OnInit {
     this.channel = this.ws.subscribe('home');
 
     this.channel.on('alarms', (data: any) => {
-      console.log('ON');
+      this.getAlarms();
     });
 
     this.channel.on('weathers', (data: any) => {
       this.temp = data;
+      this.otherService.onStoreWeather(data).subscribe((data: any) => {
+        console.log('Ok');
+      });
     });
   }
 
@@ -52,6 +56,12 @@ export class OtherComponent implements OnInit {
   getAlarms(): void {
     this.otherService.getAlarms().subscribe((data: any) => {
       this.alarms = data;
+    });
+  }
+
+  getWeather(): void {
+    this.otherService.getWeathers().subscribe((data: any) => {
+      this.temp = data[0].degrees;
     });
   }
 
