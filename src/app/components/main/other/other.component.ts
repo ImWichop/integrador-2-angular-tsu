@@ -33,7 +33,7 @@ export class OtherComponent implements OnInit {
 
     this.channel.on('weathers', (data: any) => {
       this.temp = data;
-      this.otherService.onStoreWeather(data).subscribe((data: any) => {
+      this.otherService.onStoreWeather(data).subscribe(() => {
         console.log('Ok');
       });
     });
